@@ -1,0 +1,18 @@
+{
+    "name": "wasm-raytracer-rust-js",
+    "version": "1.0.0",
+    "description": "A raytracer makes use of Rust and WebAssembly  or JavaScript to render a scene in the browser",
+    "main": "lib/main.js",
+    "scripts": {
+        "serve": "webpack-serve --config ./webpack.config.js --content public"
+    },
+    "keywords": [],
+    "dependencies": {
+        "ray": "file://../ray/pkg"
+    },
+    "devDependencies": {
+        "webpack": "^4.6.0",
+        "webpack-cli": "^3.1.0",
+        "webpack-serve": "^1.0.4"
+    }
+}
