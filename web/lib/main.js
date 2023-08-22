@@ -185,7 +185,7 @@ document.querySelectorAll('.switch-container a')
     .forEach((e) => e.addEventListener('click', (e) => {
 
     const node = e.target;
-    if (node.innerText === 'WebAssembly') {
+    if (node.innerText === 'Rust+Wasm=❤️') {
         wasm = true;
         document.querySelectorAll('.switch-container a')[0].classList = 'selected';
         document.querySelectorAll('.switch-container a')[1].classList = '';
