@@ -4,7 +4,8 @@
     "description": "A raytracer makes use of Rust and WebAssembly  or JavaScript to render a scene in the browser",
     "main": "lib/main.js",
     "scripts": {
-        "serve": "webpack-serve --config ./webpack.config.js --content public"
+        "serve": "webpack-serve --config ./webpack.config.js --content public",
+        "build": "webpack --config ./webpack.config.js"
     },
     "keywords": [],
     "dependencies": {
@@ -13,6 +14,7 @@
     "devDependencies": {
         "webpack": "^4.6.0",
         "webpack-cli": "^3.1.0",
-        "webpack-serve": "^1.0.4"
+        "webpack-serve": "^1.0.4",
+        "copy-webpack-plugin": "^5.0.3"
     }
 }
