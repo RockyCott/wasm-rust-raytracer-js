@@ -5,24 +5,24 @@ const SELF_INTERSECTION_THRESHOLD = 0.001;
 function trace(ray, scene, depth) {
     if (depth > 2) return;
 
-    let distObject = intersectScene(ray, scene);
+    var distObject = intersectScene(ray, scene);
 
     if (distObject[0] === Infinity) {
         return Vector.ZERO;
     }
 
-    let dist = distObject[0],
+    var dist = distObject[0],
         object = distObject[1];
 
-    let pointAtTime = Vector.add(ray.point, Vector.scale(ray.vector, dist));
+    var pointAtTime = Vector.add(ray.point, Vector.scale(ray.vector, dist));
 
     return surface(ray, scene, object, pointAtTime, surfaceNormal(object, pointAtTime), depth);
 }
 
 function intersectScene(ray, scene) {
-    let closest = [Infinity, null];
-    for (let i = 0; i < scene.objects.length; i++) {
-        let object = scene.objects[i];
+    var closest = [Infinity, null];
+    for (var i = 0; i < scene.objects.length; i++) {
+        var object = scene.objects[i];
         let dist;
         if (object.type === 'Sphere') {
             dist = sphereIntersection(object, ray);
@@ -41,7 +41,7 @@ function intersectScene(ray, scene) {
 }
 
 function sphereIntersection(sphere, ray) {
-    let eye_to_center = Vector.subtract(sphere.point, ray.point),
+    var eye_to_center = Vector.subtract(sphere.point, ray.point),
         v = Vector.dotProduct(eye_to_center, ray.vector),
         eoDot = Vector.dotProduct(eye_to_center, eye_to_center),
         discriminant = (sphere.radius * sphere.radius) - eoDot + (v * v);
@@ -82,17 +82,17 @@ function planeColorAt(plane, point, scene) {
     const fromOrigin = Vector.subtract(point, plane.point);
     const width = 2;
 
-    let px = { x: 0, y: 1, z: 0 };
-    let py = { x: 0, y: 0, z: 1 };
+    var px = { x: 0, y: 1, z: 0 };
+    var py = { x: 0, y: 0, z: 1 };
 
     if (plane.normal.z !== 0) {
-        let px = { x: 0, y: 1, z: 0 };
-        let py = { x: 1, y: 0, z: 0 };
+        var px = { x: 0, y: 1, z: 0 };
+        var py = { x: 1, y: 0, z: 0 };
     }
 
     if (plane.normal.y !== 0) {
-        let px = { x: 0, y: 0, z: 1 };
-        let py = { x: 1, y: 0, z: 0 };
+        var px = { x: 0, y: 0, z: 1 };
+        var py = { x: 1, y: 0, z: 0 };
     }
 
     const cx = Vector.dotProduct(px, fromOrigin);
@@ -110,7 +110,7 @@ function planeColorAt(plane, point, scene) {
 
 function surface(ray, scene, object, pointAtTime, normal, depth) {
 
-    let b = object.color,
+    var b = object.color,
         c = Vector.ZERO,
         lambertAmount = 0;
 
@@ -119,23 +119,23 @@ function surface(ray, scene, object, pointAtTime, normal, depth) {
     }
 
     if (object.lambert) {
-        for (let i = 0; i < scene.lights.length; i++) {
+        for (var i = 0; i < scene.lights.length; i++) {
             const light = scene.lights[i];
             if (!isLightVisible(pointAtTime, scene, light)) {
                 continue;
             }
-            let contribution = Vector.dotProduct(Vector.unitVector(
+            var contribution = Vector.dotProduct(Vector.unitVector(
                 Vector.subtract(light, pointAtTime)), normal);
             if (contribution > 0) lambertAmount += contribution;
         }
     }
 
     if (object.specular) {
-        let reflectedRay = {
+        var reflectedRay = {
             point: pointAtTime,
             vector: Vector.reflectThrough(ray.vector, normal)
         };
-        let reflectedColor = trace(reflectedRay, scene, ++depth);
+        var reflectedColor = trace(reflectedRay, scene, ++depth);
         if (reflectedColor) {
             c = Vector.add(c, Vector.scale(reflectedColor, object.specular));
         }
@@ -168,9 +168,9 @@ export function render(canvas, scene) {
 
     const { width, height } = canvas;
 
-    let camera = scene.camera;
+    var camera = scene.camera;
 
-    let eyeVector = Vector.unitVector(Vector.subtract(camera.vector, camera.point)),
+    var eyeVector = Vector.unitVector(Vector.subtract(camera.vector, camera.point)),
 
         vpRight = Vector.unitVector(Vector.crossProduct(eyeVector, Vector.UP)),
         vpUp = Vector.unitVector(Vector.crossProduct(vpRight, eyeVector)),
@@ -184,16 +184,16 @@ export function render(canvas, scene) {
         pixelWidth = camerawidth / (width - 1),
         pixelHeight = cameraheight / (height - 1);
 
-    let color;
-    let ray = {
+    var color;
+    var ray = {
         point: camera.point
     };
 
     const dataArray = [];
 
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            let xcomp = Vector.scale(vpRight, (x * pixelWidth) - halfWidth),
+    for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x++) {
+            var xcomp = Vector.scale(vpRight, (x * pixelWidth) - halfWidth),
                 ycomp = Vector.scale(vpUp, (y * pixelHeight) - halfHeight);
 
             ray.vector = Vector.unitVector(Vector.add3(eyeVector, xcomp, ycomp));
