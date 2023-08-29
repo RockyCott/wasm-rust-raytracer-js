@@ -39,13 +39,6 @@ canvas {
     text-align: center;
 }
 
-.res-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
 .canvas-container {
     position: relative;
     height: 360px;
@@ -59,14 +52,13 @@ canvas {
     color: black;
     background: rgba(57,255,20,0.8);
     padding: 7px;
-    left: 0%;
 }
 
 .size {
     position: absolute;
     bottom: -16px;
     color: black;
-    background: rgba(255, 251, 20, 0.8);
+    background: rgba(179, 209, 12, 0.8);
     padding: 7px;
     right: 0%;
 }
@@ -110,15 +102,4 @@ canvas {
     padding: 0;
     text-align: left;
     font-size: 16px;
-}
-
-.dimension-inputs {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dimension-inputs label, .dimension-inputs input, .dimension-inputs button {
-    margin: 5px;
 }
