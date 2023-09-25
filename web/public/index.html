@@ -7,6 +7,20 @@
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" media="all" href="style.css" />
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+      integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+      crossorigin="anonymous"
+    />
+    <style>
+        .button-run {
+        color: white;
+        border-radius: 4px;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        background: #6923d0;
+      }
+    </style>
 </head>
 <body>
   <div id="container">
@@ -20,6 +34,13 @@
         </canvas>
         <p class="fps">30fps</p>
         <p class="size">480x360</p>
+    </div>
+
+    <br />
+    <div class="button-download">
+        <button id="download-logs" class="button-run pure-button">
+            Download logs
+          </button>
     </div>
 
     <div class="controls-container">

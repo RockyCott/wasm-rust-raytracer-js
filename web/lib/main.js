@@ -82,6 +82,23 @@ colorPickerSphere3.addEventListener('input', () => {
     colorSphere3 = hexToRgb(selectedColor);
 });
 
+const downloadButton = document.getElementById('download-logs');
+downloadButton.addEventListener('click', () => {
+    const logContent = renderTimeLogs.join('\n'); // Combina los registros en un solo texto
+    const blob = new Blob([logContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = 'render_logs.txt';
+
+    document.body.appendChild(a);
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+});
+
 
 const getScene = () => {
 
@@ -221,8 +238,11 @@ let inc = 0;
 
 const fps = new Fps(250,  document.querySelector('.fps'));
 let wasm = true;
+let renderTimeLogs = ['>>> Render logs <<<', '\n# switch to rust+wasm #\n'];
 
 const render = () => {
+
+    const t0 = performance.now();
 
     fps.tick();
 
@@ -243,6 +263,11 @@ const render = () => {
     } else {
         renderJs(scene);
     }
+    // medir tiempo de renderizado
+    const t1 = performance.now();
+    const finalTime = t1 - t0;
+    const logMessage = `Render time: ${finalTime} ms`;
+    renderTimeLogs.push(logMessage);
 
     requestAnimationFrame(render);
 };
@@ -255,10 +280,12 @@ document.querySelectorAll('.switch-container a')
     const node = e.target;
     if (node.innerText === 'Rust+Wasm=❤️') {
         wasm = true;
+        renderTimeLogs.push('\n# switch to rust+wasm #\n');
         document.querySelectorAll('.switch-container a')[0].classList = 'selected';
         document.querySelectorAll('.switch-container a')[1].classList = '';
     } else {
         wasm = false;
+        renderTimeLogs.push('\n# switch to javascript #\n');
         document.querySelectorAll('.switch-container a')[1].classList = 'selected';
         document.querySelectorAll('.switch-container a')[0].classList = '';
     }

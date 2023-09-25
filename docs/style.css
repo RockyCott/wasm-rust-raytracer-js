@@ -103,3 +103,10 @@ canvas {
     text-align: left;
     font-size: 16px;
 }
+
+.button-download {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
