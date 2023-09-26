@@ -122,7 +122,7 @@ function arrayObjToCsv(ar) {
 		//creamos el blob
 		blob =  new Blob(["\ufeff", contenido], {type: 'text/csv'});
 		//creamos el reader
-		var reader = new FileReader();
+		reader = new FileReader();
 		reader.onload = function (event) {
 			//escuchamos su evento load y creamos un enlace en dom
 			save = document.createElement('a');
