@@ -103,14 +103,14 @@ downloadButton.addEventListener('click', () => {
 function arrayObjToCsv(ar) {
 	//comprobamos compatibilidad
 	if(window.Blob && (window.URL || window.webkitURL)){
-		var contenido = "",
+		let contenido = "",
 			d = new Date(),
 			blob,
 			reader,
 			save,
 			clicEvent;
 		//creamos contenido del archivo
-		for (var i = 0; i < ar.length; i++) {
+		for (let i = 0; i < ar.length; i++) {
 			//construimos cabecera del csv
 			if (i == 0)
 				contenido += Object.keys(ar[i]).join(";") + "\n";
@@ -306,6 +306,7 @@ let renderTimeLogs = [];
 const render = () => {
 
     const t0 = performance.now();
+    const memoryInfo = performance.memory;
 
     fps.tick();
 
@@ -330,8 +331,8 @@ const render = () => {
     const t1 = performance.now();
     const finalTime = t1 - t0;
     const fpsSelector = document.querySelector('.fps');
-    renderTimeLogs.push({'RENDER TIME [ms]': finalTime, FPS: fpsSelector.innerText.slice(0, -3)});
-
+    renderTimeLogs.push({'RENDER TIME [ms]': finalTime, FPS: fpsSelector.innerText.slice(0, -3), 'MEMORY USED [MB]': memoryInfo.usedJSHeapSize / 1048576});
+    
     requestAnimationFrame(render);
 };
 
@@ -343,12 +344,12 @@ document.querySelectorAll('.switch-container a')
     const node = e.target;
     if (node.innerText === 'Rust+Wasm=❤️') {
         wasm = true;
-        renderTimeLogs.push({'RENDER TIME [ms]': 'Rust+Wasm=❤️', FPS: 'Rust+Wasm=❤️'});
+        renderTimeLogs.push({'RENDER TIME [ms]': 'Rust+Wasm=❤️', FPS: 'Rust+Wasm=❤️', 'MEMORY USED [MB]': 'Rust+Wasm=❤️'});
         document.querySelectorAll('.switch-container a')[0].classList = 'selected';
         document.querySelectorAll('.switch-container a')[1].classList = '';
     } else {
         wasm = false;
-        renderTimeLogs.push({'RENDER TIME [ms]': 'JavaScript', FPS: 'JavaScript'});
+        renderTimeLogs.push({'RENDER TIME [ms]': 'JavaScript', FPS: 'JavaScript', 'MEMORY USED [MB]': 'JavaScript'});
         document.querySelectorAll('.switch-container a')[1].classList = 'selected';
         document.querySelectorAll('.switch-container a')[0].classList = '';
     }
