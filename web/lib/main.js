@@ -331,7 +331,11 @@ const render = () => {
     const t1 = performance.now();
     const finalTime = t1 - t0;
     const fpsSelector = document.querySelector('.fps');
-    renderTimeLogs.push({'RENDER TIME [ms]': finalTime, FPS: fpsSelector.innerText.slice(0, -3), 'MEMORY USED [MB]': memoryInfo.usedJSHeapSize / 1048576});
+    let resultMemory = 0;
+    if (memoryInfo) {
+        resultMemory = memoryInfo.usedJSHeapSize;
+    }
+    renderTimeLogs.push({'RENDER TIME [ms]': finalTime, FPS: fpsSelector.innerText.slice(0, -3), 'MEMORY USED [MB]': resultMemory / 1048576});
     
     requestAnimationFrame(render);
 };
